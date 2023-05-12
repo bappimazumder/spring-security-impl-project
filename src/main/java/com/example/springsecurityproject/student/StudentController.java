@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,7 +18,7 @@ public class StudentController {
             new Student(3,"David Balame")
     );
 
-    @GetMapping(path = "{studentId}")
+    @GetMapping(path = "/{studentId}")
     public Student getStudent(@PathVariable("studentId") Integer studentId ){
          return STUDENT_LIST.stream()
         .filter(student -> studentId.equals(student.getStudentId())).
