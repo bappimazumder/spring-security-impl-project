@@ -1,5 +1,6 @@
 package com.example.springsecurityproject.student;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -16,11 +17,13 @@ public class StudentManagementController {
     );
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN,ROLE_ADMINTRANEE')")
     public static List<Student> getStudentList() {
         return STUDENT_LIST;
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('student:write')")
     public void registerNewStudent(@RequestBody Student student){
         System.out.println("New student register");
         System.out.println(student);
@@ -31,7 +34,7 @@ public class StudentManagementController {
         System.out.println("Delete student");
         System.out.println(studentId);
     }
-    @PutMapping(path = "/{studentId}")
+    @PutMapping(path = "{studentId}")
     public void updateStudent(@PathVariable("studentId") Integer studentId, @RequestBody Student student){
         System.out.println("Update student");
         System.out.println(String.format("%s %s",student,student));
