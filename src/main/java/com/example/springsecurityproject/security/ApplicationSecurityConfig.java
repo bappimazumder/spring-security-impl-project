@@ -13,6 +13,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
+import java.util.concurrent.TimeUnit;
+
 import static com.example.springsecurityproject.security.ApplicationUserPermission.COURSE_WRITE;
 import static com.example.springsecurityproject.security.ApplicationUserRole.*;
 
@@ -45,7 +47,10 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                .loginPage("/login").permitAll()
                .defaultSuccessUrl("/courses",true)
                .and()
-               .rememberMe(); // default 15 days
+               .rememberMe()
+                    .tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(21))
+                    .key("keysecured"); // default 15 days
+
     }
 
     @Override
