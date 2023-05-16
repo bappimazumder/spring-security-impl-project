@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import java.util.concurrent.TimeUnit;
 
@@ -49,7 +50,15 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                .and()
                .rememberMe()
                     .tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(21))
-                    .key("keysecured"); // default 15 days
+                    .key("keysecured")
+               .and()
+               .logout()
+                   .logoutUrl("/logout")
+                   .clearAuthentication(true)
+                   .invalidateHttpSession(true)
+                   .logoutRequestMatcher(new AntPathRequestMatcher("/logout","GET"))
+                   .deleteCookies("JSESSIONID","remember-me")
+                   .logoutSuccessUrl("/login");
 
     }
 
