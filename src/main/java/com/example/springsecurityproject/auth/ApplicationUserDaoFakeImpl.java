@@ -33,7 +33,7 @@ public class ApplicationUserDaoFakeImpl implements ApplicationUserDAO{
                 new ApplicationUser(
                         STUDENT.getGrantedAuthorities(),
                         "bappi",
-                        "SecurityPassword",
+                        passwordEncoder.encode("SecurityPassword"),
                         true,
                         true,
                         true,
@@ -41,7 +41,7 @@ public class ApplicationUserDaoFakeImpl implements ApplicationUserDAO{
                 ),new ApplicationUser(
                 ADMIN.getGrantedAuthorities(),
                 "akash",
-                "SecurityPassword",
+                 passwordEncoder.encode("SecurityPassword"),
                 true,
                 true,
                 true,
@@ -49,7 +49,7 @@ public class ApplicationUserDaoFakeImpl implements ApplicationUserDAO{
         ),new ApplicationUser(
                         ADMINTRANEE.getGrantedAuthorities(),
                         "adam",
-                        "SecurityPassword",
+                        passwordEncoder.encode("SecurityPassword"),
                         true,
                         true,
                         true,
