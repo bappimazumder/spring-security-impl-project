@@ -1,5 +1,5 @@
 # spring-security-impl-project
-This project show how to implement the spring security using JWT.
+A simple authentication system using basic auth and JWT..
 
 Technology:
 Java
