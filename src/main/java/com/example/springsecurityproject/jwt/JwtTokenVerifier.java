@@ -43,7 +43,7 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
             Claims body = claimsJws.getBody();
             String userName = body.getSubject();
             List<Map<String, String>> authorities = (List<Map<String, String>>)body.get("authorities");
-            Set<GrantedAuthority> grantedAuthorities = authorities.stream().map(a-> new SimpleGrantedAuthority(a.get("auhority"))).collect(Collectors.toSet());
+            Set<GrantedAuthority> grantedAuthorities = authorities.stream().map(a-> new SimpleGrantedAuthority(a.get("authority"))).collect(Collectors.toSet());
 
             Authentication authentication = new UsernamePasswordAuthenticationToken(
                     userName,null,grantedAuthorities
@@ -53,5 +53,6 @@ public class JwtTokenVerifier extends OncePerRequestFilter {
         }catch (JwtException e){
                 throw new IllegalStateException(String.format("This token %s is invalid ",token));
         }
+        filterChain.doFilter(request,response);
     }
 }
