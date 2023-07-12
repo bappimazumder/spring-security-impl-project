@@ -14,8 +14,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.crypto.SecretKey;
+
+import java.util.concurrent.TimeUnit;
 
 import static com.example.springsecurityproject.security.ApplicationUserRole.*;
 
@@ -56,7 +59,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                .anyRequest()
                .authenticated()
                /*.and()
-               .formLogin()
+                .formLogin()
                      .loginPage("/login").permitAll()
                      .defaultSuccessUrl("/courses",true)
                      .usernameParameter("username")
@@ -90,30 +93,4 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         provider.setUserDetailsService(applicationUserService);
         return provider;
     }
-
-   /* @Override
-    @Bean
-    protected UserDetailsService userDetailsService() {
-      UserDetails userBappi =  User.builder()
-                .username("bappimazumder")
-                .password(passwordEncoder.encode("HelloSecurity1"))
-              //  .roles(STUDENT.name())
-              .authorities(STUDENT.getGrantedAuthorities())
-                .build();
-
-        UserDetails userAkash =  User.builder()
-                .username("akash")
-                .password(passwordEncoder.encode("HelloSecurity2"))
-                //.roles(ADMIN.name())
-                .authorities(ADMIN.getGrantedAuthorities())
-                .build();
-
-        UserDetails userTrainee =  User.builder()
-                .username("adam")
-                .password(passwordEncoder.encode("HelloSecurity3"))
-                //.roles(ADMINTRANEE.name())
-                .authorities(ADMINTRANEE.getGrantedAuthorities())
-                .build();
-       return new InMemoryUserDetailsManager(userBappi,userAkash,userTrainee);
-    }*/
 }
